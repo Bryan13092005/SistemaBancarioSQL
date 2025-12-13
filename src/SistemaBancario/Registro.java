@@ -2,6 +2,8 @@ package SistemaBancario;
 
 import Usuarios_excepcion.DatoInvalidoExcepcion;
 import Usuarios_excepcion.Usuario;
+import Usuarios_excepcion.UsuariosDAO;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,23 +28,21 @@ public class Registro extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    boolean encontrado = true;
                     String nombre=txtUser.getText().trim();
                     String clave=txtClave.getText().trim();
                     double monto=Double.parseDouble(txtMonto.getText());
-                    for (Usuario u : listaUsuarios){
-                        if (u.getUsuario().equalsIgnoreCase(nombre)) {
-                            encontrado = false;
-                            break;
-                        }
-                    }
-                    if(encontrado) {
-                        listaUsuarios.add(new Usuario(nombre,clave,monto));
+                    boolean existe = UsuariosDAO.existeUsuario(nombre);
+
+                    if (!existe) {
+                        Usuario nuevo = new Usuario(nombre, clave, monto);
+
+                        UsuariosDAO.insertarCliente(nuevo);
+
                         JOptionPane.showMessageDialog(null,"REGISTRO EXITOSO");
                         new Login();
-                        Registro.this.dispose();
-                    }else {
-                        JOptionPane.showMessageDialog(null, "NOMBRE DE USUARIO YA EXISTENTE","EXISTENTE",JOptionPane.WARNING_MESSAGE);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NOMBRE DE USUARIO YA EXISTENTE", "EXISTENTE", JOptionPane.WARNING_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Monto inválido. Ingresa un número válido.","INVALIDO",JOptionPane.ERROR_MESSAGE);
