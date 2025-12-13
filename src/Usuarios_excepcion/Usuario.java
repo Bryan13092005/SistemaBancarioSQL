@@ -26,16 +26,16 @@ public class Usuario {
         return usuario;
     }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     public void setClave(String clave) {
         this.clave = clave;
     }
 
     public void setMonto(double monto) {
         this.monto = monto;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
     }
 
     @Override
