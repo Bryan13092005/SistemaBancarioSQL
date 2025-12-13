@@ -16,7 +16,7 @@ public class Login extends JFrame{
     private JButton ingresarButton;
     private JButton registrarButton;
     private JPanel login_panel;
-
+    private int intentos=3;
     public Login () {
         ingresarButton.addActionListener(new ActionListener() {
             @Override
@@ -28,6 +28,7 @@ public class Login extends JFrame{
                 Usuario u = UsuariosDAO.validarLogin(nombre, pass);
 
                 if (u == null) {
+                    intentos--;
                     txtPass.setText("");
                     txtUse.setText("");
                     JOptionPane.showMessageDialog(null, "USUARIO O CLAVE INCORRECTOS", "DENEGADO", JOptionPane.WARNING_MESSAGE);
@@ -37,6 +38,13 @@ public class Login extends JFrame{
                     AccionesBancarias acciones = new AccionesBancarias(u.getMonto(), u.getUsuario());
                     new BancoPrincipal(acciones);
                     dispose();
+                }
+                 if(intentos==1){
+                    JOptionPane.showMessageDialog(null,"ADVERTENCIA SOLO TE QUEDA UN INTENTO","ADVERTENCIA",JOptionPane.WARNING_MESSAGE);
+                }
+                 if (intentos==0) {
+                    JOptionPane.showMessageDialog(null,"LOS INTENTO FUERON AGOTADOS","ACCESO BLOQUEADO",JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
                 }
             }
         });
