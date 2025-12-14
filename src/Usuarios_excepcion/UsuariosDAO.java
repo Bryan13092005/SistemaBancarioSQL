@@ -56,7 +56,8 @@ public class UsuariosDAO {
                 return new Usuario(
                         rs.getString("usuario"),
                         rs.getString("clave"),
-                        rs.getDouble("monto")
+                        rs.getDouble("monto"),
+                        rs.getString("historialTransacciones")
                 );
             }
 
@@ -67,9 +68,49 @@ public class UsuariosDAO {
         return null;
     }
 
+    public static String Obtenerhistorial(String usuario) {
+        String sql="select historialTransacciones from cuentasUsuario where usuario=?";
+        try(Connection cnn=Conexion.getConexion();
+        PreparedStatement ps= cnn.prepareStatement(sql)){
+            if(UsuariosDAO.existeUsuario(usuario)){
+                ps.setString(1,usuario);
+                ResultSet rs=ps.executeQuery();
+                if (rs.next()){
+                    return rs.getString("historialTransacciones");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Sin historial";
+    }
+
+    public static void ActualizarHistorial(String nuevaAccion,String usuario) {
+        String sql= """
+        update cuentasUsuario
+        set historialTransacciones =
+            if(
+                historialTransacciones = 'Ninguna',
+                ?,
+                concat(historialTransacciones,char(10),?)
+            )
+        where usuario = ?
+        """;
+        if (UsuariosDAO.existeUsuario(usuario)) {
+            try (Connection conn = Conexion.getConexion();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1,nuevaAccion);
+                ps.setString(2,nuevaAccion);
+                ps.setString(3,usuario);
+                ps.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void actualizarMontos(String usuario,double montoNuevo){
-        UsuariosDAO ud=new UsuariosDAO();
-        if(ud.existeUsuario(usuario)){
+        if(UsuariosDAO.existeUsuario(usuario)){
             String sql="update cuentasUsuario set monto=? where usuario=?";
             try(Connection conn=Conexion.getConexion();
                 PreparedStatement ps=conn.prepareStatement(sql)){

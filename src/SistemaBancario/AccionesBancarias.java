@@ -4,7 +4,6 @@ import Usuarios_excepcion.UsuariosDAO;
 
 import javax.swing.*;
 
-//import static app.Main.listaUsuarios;
 public class AccionesBancarias {
     private double saldo;
     private final String nombre;
@@ -23,15 +22,17 @@ public class AccionesBancarias {
         ud.actualizarMontos(nombre,saldo);
     }
 
-    public void transferir(double monto,String usuarioTranferencia){
+    public boolean transferir(double monto,String usuarioTranferencia){
         if (UsuariosDAO.existeUsuario(nombre) && UsuariosDAO.existeUsuario(usuarioTranferencia.toLowerCase())){
             if (UsuariosDAO.Transferencia(usuarioTranferencia,monto)){
                 saldo-=monto;
                 ud.actualizarMontos(nombre,saldo);
+                return true;
             }
         }else if (!UsuariosDAO.existeUsuario(usuarioTranferencia.toLowerCase())){
             JOptionPane.showMessageDialog(null,"No existe el usuario a transferir");
         }
+        return false;
     }
 
     public double getSaldo() {

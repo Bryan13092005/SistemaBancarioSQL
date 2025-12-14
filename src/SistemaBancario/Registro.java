@@ -33,7 +33,7 @@ public class Registro extends JFrame{
                     boolean existe = UsuariosDAO.existeUsuario(nombre);
 
                     if (!existe) {
-                        Usuario nuevo = new Usuario(nombre, clave, monto);
+                        Usuario nuevo = new Usuario(nombre, clave, monto,"Ninguna");
 
                         UsuariosDAO.insertarCliente(nuevo);
 
