@@ -19,7 +19,7 @@ public class BancoPrincipal extends JFrame{
         setContentPane(Banca);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        pack();
+        setSize(500,300);
         setLocationRelativeTo(null);
         saldo.setText(String.valueOf(usuarioIngresado.getSaldo()));
         usuario.setText(usuarioIngresado.getNombre().toUpperCase());

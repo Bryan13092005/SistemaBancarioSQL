@@ -125,16 +125,24 @@
               <text value="Historial de Transacciones"/>
             </properties>
           </component>
-          <component id="cebef" class="javax.swing.JTextArea" binding="HTransacciones">
+          <scrollpane id="dec16">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-3421762"/>
             </properties>
-          </component>
+            <border type="none"/>
+            <children>
+              <component id="cebef" class="javax.swing.JTextArea" binding="HTransacciones">
+                <constraints/>
+                <properties>
+                  <background color="-3421762"/>
+                  <minimumSize width="30" height="30"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
         </children>
       </grid>
     </children>
