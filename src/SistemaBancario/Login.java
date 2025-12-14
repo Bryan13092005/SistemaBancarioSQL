@@ -7,9 +7,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static app.Main.listaUsuarios;
-
-
 public class Login extends JFrame{
     private JTextField txtUse;
     private JTextField txtPass;

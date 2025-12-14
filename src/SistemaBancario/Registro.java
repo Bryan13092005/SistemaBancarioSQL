@@ -7,7 +7,6 @@ import Usuarios_excepcion.UsuariosDAO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static app.Main.listaUsuarios;
 
 public class Registro extends JFrame{
     private JTextField txtUser;

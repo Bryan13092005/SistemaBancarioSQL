@@ -4,7 +4,6 @@ import Usuarios_excepcion.Usuario;
 
 import javax.swing.*;
 
-import static app.Main.listaUsuarios;
 
 public class BancoPrincipal extends JFrame{
     private JButton depositoButton;
@@ -62,21 +61,8 @@ public class BancoPrincipal extends JFrame{
                 }else if(destinatario.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Usuario vacio", "ERROR", JOptionPane.WARNING_MESSAGE);
                 }else{
-                    boolean encontrado=false;
-                    for(Usuario u:listaUsuarios){
-                        if (u.getUsuario().equalsIgnoreCase(destinatario)){
-                            usuarioIngresado.transferir(monto,destinatario);
-                            saldo.setText(String.valueOf(usuarioIngresado.getSaldo()));
-                            JOptionPane.showMessageDialog(null,"Transferencia exitosa a "+destinatario.toUpperCase());
-                            encontrado=true;
-                            break;
-                        }
-                    }
-
-                    if(!encontrado){
-                        JOptionPane.showMessageDialog(null, "Usuario no encontrado", "ERROR", JOptionPane.WARNING_MESSAGE);
-                    }
-
+                    usuarioIngresado.transferir(monto,destinatario);
+                    saldo.setText(String.valueOf(usuarioIngresado.getSaldo()));
                 }
             }catch (NumberFormatException ex){
                 JOptionPane.showMessageDialog(null,"Monto invalido","ERROR",JOptionPane.ERROR_MESSAGE);

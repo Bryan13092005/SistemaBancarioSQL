@@ -2,6 +2,7 @@ package Usuarios_excepcion;
 
 import SistemaBancario.Conexion;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ public class UsuariosDAO {
 
         try (Connection con= Conexion.getConexion();
             PreparedStatement ps=con.prepareStatement(sql)){
-            ps.setString(1,u.getUsuario());
+            ps.setString(1,u.getUsuario().toLowerCase());
             ps.setString(2,u.getClave());
             ps.setDouble(3, u.getMonto());
 
@@ -29,7 +30,7 @@ public class UsuariosDAO {
         try (Connection con = Conexion.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, usuario);
+            ps.setString(1, usuario.toLowerCase());
             ResultSet rs = ps.executeQuery();
 
             return rs.next();
@@ -66,5 +67,36 @@ public class UsuariosDAO {
         return null;
     }
 
+    public void actualizarMontos(String usuario,double montoNuevo){
+        UsuariosDAO ud=new UsuariosDAO();
+        if(ud.existeUsuario(usuario)){
+            String sql="update cuentasUsuario set monto=? where usuario=?";
+            try(Connection conn=Conexion.getConexion();
+                PreparedStatement ps=conn.prepareStatement(sql)){
+                ps.setDouble(1,montoNuevo);
+                ps.setString(2,usuario);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Accion realizada correctamente");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Usuario no encontrado","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
+    public static boolean Transferencia(String usuario,double monto){
+        String sql="update cuentasUsuario set monto=(monto+?) where usuario=?";
+        try(Connection conn=Conexion.getConexion();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setDouble(1,monto);
+            ps.setString(2,usuario);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Transferencia exitosa");
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
