@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class Conexion {
 
     private static final String URL =
-            "jdbc:mysql://localhost:3306/sistemabancario";
-    private static final String USER = "root";
-    private static final String PASS = "root";
+            "jdbc:mysql://uxjcpsebks6uid6m:cGypISPPpopfnhAoAFQo@bbva1t1laqoqzcqamcms-mysql.services.clever-cloud.com:3306/bbva1t1laqoqzcqamcms";
+    private static final String USER = "uxjcpsebks6uid6m";
+    private static final String PASS = "cGypISPPpopfnhAoAFQo";
 
     public static Connection getConexion() {
         try {

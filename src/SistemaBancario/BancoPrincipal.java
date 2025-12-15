@@ -38,7 +38,7 @@ public class BancoPrincipal extends JFrame{
                 }
             }catch (NumberFormatException ex){
                 JOptionPane.showMessageDialog(null,"Ingresaste una letra","ERROR",JOptionPane.ERROR_MESSAGE);
-            }catch(NullPointerException _){}
+            }catch(NullPointerException ex){}
         });
 
         retiroButton.addActionListener(e -> {
@@ -55,7 +55,7 @@ public class BancoPrincipal extends JFrame{
                 }
             }catch (NumberFormatException ex){
                 JOptionPane.showMessageDialog(null,"Monto invalido","ERROR",JOptionPane.ERROR_MESSAGE);
-            }catch(NullPointerException _){}
+            }catch(NullPointerException ex){}
         });
 
         transferenciaButton.addActionListener(e -> {
@@ -76,7 +76,7 @@ public class BancoPrincipal extends JFrame{
                 }
             }catch (NumberFormatException ex){
                 JOptionPane.showMessageDialog(null,"Monto invalido","ERROR",JOptionPane.ERROR_MESSAGE);
-            }catch(NullPointerException _){}
+            }catch(NullPointerException ex){}
         });
 
         salirButton.addActionListener(e -> {
